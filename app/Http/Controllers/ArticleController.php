@@ -23,8 +23,8 @@ class ArticleController
 
     public function store(ArticleStoreRequest $request)
     {
-        $request['image'] = $this->upload_image($request->file('image'));
-        $article = Article::create($request->all());
+        $img = $this->upload_image($request->file('image'));
+        $article = Article::create($request->except('image')+['image'=>$img]);
 
         return responder()->success($article, ArticleTransformer::class)->with('Author')->only(['Author'=>'Name'])->respond();
     }
@@ -33,13 +33,20 @@ class ArticleController
     {
         $article = Article::find($id);
 
-        if($request->file('image'))
-            $request['image'] = $this->upload_image($request->file('image'));
-
         if(!$article)
             return responder()->error(404, 'Article Not Found')->respond(404);
 
-        $article->update($request->all());
+        $img = $request->file('image');
+
+        if($img)
+        {
+            $article->update($request->except('image')+['image'=>$img]);
+        }
+        else
+        {
+            $article->update($request->all());
+        }
+
         return responder()->success($article, ArticleTransformer::class)->with('Author')->only(['Author'=>'Name'])->respond();
     }
 
