@@ -27,7 +27,7 @@ class ArticleStoreRequest extends RequestAbstract
             'first_title' => 'required',
             'second_title' => 'required',
             'content' => 'required',
-            'image' => 'required|mimes:jpeg,jpg,png',
+            'image' => 'required|image|mimes:jpeg,jpg,png',
             'author_id' => 'required|exists:authors,id',
         ];
     }

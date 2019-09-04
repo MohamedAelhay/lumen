@@ -24,20 +24,11 @@ $router->post(
 
 $router->group(['prefix' => 'authors'], function () use ($router) {
 
-    $router->group(
-        ['middleware' => 'auth:api'],
-        function() use ($router) {
-            $router->get('/', function() {
-                $users = \App\Author::all();
-                return response()->json($users);
-            });
-        }
-    );
-
-//    $router->get('/', [
-//        'as'  => 'authors.index',
-//        'uses'=> 'AuthorController@index'
-//    ]);
+    $router->get('/', [
+        'middleware' => 'auth:api',
+        'as'  => 'authors.index',
+        'uses'=> 'AuthorController@index'
+    ]);
 
     $router->put('{author}', [
         'as'  => 'authors.update',

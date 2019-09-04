@@ -16,7 +16,8 @@ class AddForeignKeyToArticlesTable extends Migration
         Schema::table('articles', function (Blueprint $table) {
             $table->foreign('author_id')
                 ->references('id')
-                ->on('authors');
+                ->on('authors')
+                ->onDelete('cascade');
         });
     }
 

@@ -25,7 +25,7 @@ class ArticleController
 
     public function store(ArticleStoreRequest $request)
     {
-        $img = $this->upload_image($request->file('image'));
+        $img = $this->upload_image($request['image']);
         $article = Article::create($request->except('image')+['image'=>$img]);
 
         return responder()->success($article, ArticleTransformer::class)
@@ -39,7 +39,7 @@ class ArticleController
         if(!$article)
             return responder()->error(404, 'Article Not Found')->respond(404);
 
-        $img = $request->file('image');
+        $img = $this->upload_image($request['image']);
 
         if($img)
         {
@@ -66,10 +66,11 @@ class ArticleController
 
     private function upload_image($image)
     {
-        $name = time().'.'.$image->getClientOriginalExtension();
-//        $destinationPath = storage_path('/public/images');
-        $image->move(('images'), $name);
+        $name = time().'.'.$image->getClientOriginalName();
 
-        return $name;
+//        $destinationPath = storage_path('/public/images');
+        $image->move('/home/hp/Documents/Lumen/public/images', $name);
+
+        return 'images/' . $name;
     }
 }
