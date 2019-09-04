@@ -10,5 +10,6 @@ $factory->define(Author::class, function (Faker $faker){
        'github'=> $faker->email,
        'twitter'=> $faker->email,
        'location'=> $faker->address,
+       'password' => app('hash')->make('12345')
    ];
 });

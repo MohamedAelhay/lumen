@@ -13,12 +13,14 @@ class ArticleController
 {
     public function index()
     {
-        return responder()->success(Article::paginate(), ArticleTransformer::class)->with('Author')->only(['Author'=>'Name'])->respond();
+        return responder()->success(Article::paginate(), ArticleTransformer::class)
+            ->with('Author')->only(['Author'=>'Name'])->respond();
     }
 
     public function show($id)
     {
-        return responder()->success(Article::findOrFail($id), ArticleTransformer::class)->with('Author')->only(['Author'=>'Name'])->respond();
+        return responder()->success(Article::findOrFail($id), ArticleTransformer::class)
+            ->with('Author')->only(['Author'=>'Name'])->respond();
     }
 
     public function store(ArticleStoreRequest $request)
@@ -26,7 +28,8 @@ class ArticleController
         $img = $this->upload_image($request->file('image'));
         $article = Article::create($request->except('image')+['image'=>$img]);
 
-        return responder()->success($article, ArticleTransformer::class)->with('Author')->only(['Author'=>'Name'])->respond();
+        return responder()->success($article, ArticleTransformer::class)
+            ->with('Author')->only(['Author'=>'Name'])->respond();
     }
 
     public function update(ArticleUpdateRequest $request, $id)
@@ -46,8 +49,8 @@ class ArticleController
         {
             $article->update($request->all());
         }
-
-        return responder()->success($article, ArticleTransformer::class)->with('Author')->only(['Author'=>'Name'])->respond();
+        return responder()->success($article, ArticleTransformer::class)
+            ->with('Author')->only(['Author'=>'Name'])->respond();
     }
 
     public function destroy($id)

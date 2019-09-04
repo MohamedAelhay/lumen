@@ -15,11 +15,29 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->post(
+    '/auth/login',
+    [
+        'uses' => 'AuthController@login'
+    ]
+);
+
 $router->group(['prefix' => 'authors'], function () use ($router) {
-    $router->get('/', [
-        'as'  => 'authors.index',
-        'uses'=> 'AuthorController@index'
-    ]);
+
+    $router->group(
+        ['middleware' => 'auth:api'],
+        function() use ($router) {
+            $router->get('/', function() {
+                $users = \App\Author::all();
+                return response()->json($users);
+            });
+        }
+    );
+
+//    $router->get('/', [
+//        'as'  => 'authors.index',
+//        'uses'=> 'AuthorController@index'
+//    ]);
 
     $router->put('{author}', [
         'as'  => 'authors.update',
