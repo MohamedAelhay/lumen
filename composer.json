@@ -9,6 +9,7 @@
         "firebase/php-jwt": "^5.0",
         "flugger/laravel-responder": "^3.0",
         "laravel/lumen-framework": "5.8.*",
+        "mpociot/laravel-apidoc-generator": "^3.16",
         "pearl/lumen-request-validate": "^1.3",
         "tymon/jwt-auth": "^1.0@dev"
     },

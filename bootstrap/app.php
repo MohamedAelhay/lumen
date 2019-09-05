@@ -22,8 +22,8 @@ $app = new Laravel\Lumen\Application(
 );
 
  $app->withFacades();
-
  $app->withEloquent();
+ $app->configure('apidoc');
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +82,8 @@ $app->singleton(
 //class_alias(Flugg\Responder\Facades\Responder::class, 'Responder');
 //class_alias(Flugg\Responder\Facades\Transformation::class, 'Transformation');
  $app->register(Pearl\RequestValidate\RequestServiceProvider::class);
+ $app->register(\Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class);
+
 
 /*
 |--------------------------------------------------------------------------

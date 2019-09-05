@@ -30,11 +30,6 @@ $router->group(['prefix' => 'authors'], function () use ($router) {
         'uses'=> 'AuthorController@index'
     ]);
 
-    $router->put('{author}', [
-        'as'  => 'authors.update',
-        'uses'=> 'AuthorController@update'
-    ]);
-
     $router->get('/{author}', [
         'as'  => 'authors.show',
         'uses'=> 'AuthorController@show'
@@ -45,7 +40,7 @@ $router->group(['prefix' => 'authors'], function () use ($router) {
         'uses'=> 'AuthorController@store'
     ]);
 
-    $router->patch('{author}', [
+    $router->put('{author}', [
         'as'  => 'authors.update',
         'uses'=> 'AuthorController@update'
     ]);
@@ -79,7 +74,7 @@ $router->group(['prefix' => 'articles'], function () use ($router) {
 
     $router->patch('{article}', [
         'as'  => 'articles.update',
-        'uses'=> 'ArticlerController@update'
+        'uses'=> 'ArticleController@update'
     ]);
 
     $router->delete('{article}', [

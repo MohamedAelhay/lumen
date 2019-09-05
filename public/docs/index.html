@@ -1,0 +1,528 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/all.js"></script>
+
+
+          <script>
+        $(function() {
+            setupLanguages(["bash","javascript"]);
+        });
+      </script>
+      </head>
+
+  <body class="">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+        <img src="images/logo.png" />
+                    <div class="lang-selector">
+                                  <a href="#" data-language-name="bash">bash</a>
+                                  <a href="#" data-language-name="javascript">javascript</a>
+                            </div>
+                            <div class="search">
+              <input type="text" class="search" id="input-search" placeholder="Search">
+            </div>
+            <ul class="search-results"></ul>
+              <div id="toc">
+      </div>
+                    <ul class="toc-footer">
+                                  <li><a href='http://github.com/mpociot/documentarian'>Documentation Powered by Documentarian</a></li>
+                            </ul>
+            </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+          <!-- START_INFO -->
+<h1>Info</h1>
+<p>Welcome to the generated API reference.
+<a href="http://localhost/docs/collection.json">Get Postman Collection</a></p>
+<!-- END_INFO -->
+<h1>Author management</h1>
+<p>APIs for managing authors</p>
+<!-- START_cf1251112a611b51ba88e395f6bd15fe -->
+<h2>Show all Authors</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/authors" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/authors");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET /authors</code></p>
+<!-- END_cf1251112a611b51ba88e395f6bd15fe -->
+<!-- START_59e7915d598b2b2705178db7e5a982f6 -->
+<h2>Select one Author</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/authors/1" \
+    -H "Content-Type: application/json" \
+    -d '{"author_id":10}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("/authors/1");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "author_id": 10
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "id": 4,
+    "name": "Jessica Jones",
+    "roles": [
+        "admin"
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET /authors/{author}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>author_id</td>
+<td>integer</td>
+<td>optional</td>
+<td>the ID of the author</td>
+</tr>
+</tbody>
+</table>
+<!-- END_59e7915d598b2b2705178db7e5a982f6 -->
+<!-- START_bfb05bba6bd6e003fd9a428bfb610255 -->
+<h2>Create New Author</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "/authors" \
+    -H "Content-Type: application/json" \
+    -d '{"name":"consequatur","password":"eum","e-mail":"quis","twitter":"ut","github":"ex","last_published":"quia"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("/authors");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "name": "consequatur",
+    "password": "eum",
+    "e-mail": "quis",
+    "twitter": "ut",
+    "github": "ex",
+    "last_published": "quia"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /authors</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>required</td>
+<td>The Author name.</td>
+</tr>
+<tr>
+<td>password</td>
+<td>password</td>
+<td>required</td>
+<td>The Author's password.</td>
+</tr>
+<tr>
+<td>e-mail</td>
+<td>e-mail</td>
+<td>required</td>
+<td>The Author's e-mail.</td>
+</tr>
+<tr>
+<td>twitter</td>
+<td>e-mail</td>
+<td>required</td>
+<td>The Author's twitter.</td>
+</tr>
+<tr>
+<td>github</td>
+<td>e-mail</td>
+<td>required</td>
+<td>The Author's github.</td>
+</tr>
+<tr>
+<td>last_published</td>
+<td>The</td>
+<td>optional</td>
+<td>last Author's article.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_bfb05bba6bd6e003fd9a428bfb610255 -->
+<!-- START_303f73b051cad41035a040f52b6aa908 -->
+<h2>Update Author&#039;s details</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT "/authors/1" \
+    -H "Content-Type: application/json" \
+    -d '{"name":"eveniet","password":"fuga","e-mail":"qui","twitter":"optio","github":"laborum","last_published":"sint"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("/authors/1");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "name": "eveniet",
+    "password": "fuga",
+    "e-mail": "qui",
+    "twitter": "optio",
+    "github": "laborum",
+    "last_published": "sint"
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PUT /authors/{author}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>optional</td>
+<td>The Author name.</td>
+</tr>
+<tr>
+<td>password</td>
+<td>password</td>
+<td>optional</td>
+<td>The The Author's password.</td>
+</tr>
+<tr>
+<td>e-mail</td>
+<td>e-mail</td>
+<td>optional</td>
+<td>The Author's e-mail.</td>
+</tr>
+<tr>
+<td>twitter</td>
+<td>e-mail</td>
+<td>optional</td>
+<td>The The Author's twitter.</td>
+</tr>
+<tr>
+<td>github</td>
+<td>e-mail</td>
+<td>optional</td>
+<td>The The Author's github.</td>
+</tr>
+<tr>
+<td>last_published</td>
+<td>The</td>
+<td>optional</td>
+<td>last Author's article.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_303f73b051cad41035a040f52b6aa908 -->
+<!-- START_76829248ba3a4fa170c545d561bf5631 -->
+<h2>Delete Author</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE "/authors/1" \
+    -H "Content-Type: application/json" \
+    -d '{"id":"debitis"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("/authors/1");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "id": "debitis"
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>DELETE /authors/{author}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Int</td>
+<td>required</td>
+<td>The Author's ID.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_76829248ba3a4fa170c545d561bf5631 -->
+<h1>general</h1>
+<!-- START_ac6527c96d4b9793a4c77ff1e22a8906 -->
+<h2>/auth/login</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "/auth/login" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/auth/login");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /auth/login</code></p>
+<!-- END_ac6527c96d4b9793a4c77ff1e22a8906 -->
+<!-- START_8b794a0f08ddd4d69013d2fd7726b7e2 -->
+<h2>/articles</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/articles" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/articles");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET /articles</code></p>
+<!-- END_8b794a0f08ddd4d69013d2fd7726b7e2 -->
+<!-- START_26f1d28e7bb78a0d43ff6c296c65e4cf -->
+<h2>/articles/{article}</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT "/articles/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/articles/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PUT /articles/{article}</code></p>
+<!-- END_26f1d28e7bb78a0d43ff6c296c65e4cf -->
+<!-- START_46be8f8d1a61d59af8bdf43694836b62 -->
+<h2>/articles/{article}</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET -G "/articles/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/articles/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET /articles/{article}</code></p>
+<!-- END_46be8f8d1a61d59af8bdf43694836b62 -->
+<!-- START_24a000b518b36afd387d5e167fde2c1a -->
+<h2>/articles</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "/articles" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/articles");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /articles</code></p>
+<!-- END_24a000b518b36afd387d5e167fde2c1a -->
+<!-- START_2386275662bedc625d0b1e6e95087f6a -->
+<h2>/articles/{article}</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PATCH "/articles/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/articles/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "PATCH",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PATCH /articles/{article}</code></p>
+<!-- END_2386275662bedc625d0b1e6e95087f6a -->
+<!-- START_e41d3b962100ea51125a979028919282 -->
+<h2>/articles/{article}</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE "/articles/1" </code></pre>
+<pre><code class="language-javascript">const url = new URL("/articles/1");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>DELETE /articles/{article}</code></p>
+<!-- END_e41d3b962100ea51125a979028919282 -->
+      </div>
+      <div class="dark-box">
+                        <div class="lang-selector">
+                                    <a href="#" data-language-name="bash">bash</a>
+                                    <a href="#" data-language-name="javascript">javascript</a>
+                              </div>
+                </div>
+    </div>
+  </body>
+</html>
