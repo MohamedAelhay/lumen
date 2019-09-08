@@ -9,6 +9,7 @@ use App\Http\Requests\Author\AuthorStoreRequest;
 use App\Http\Requests\Author\AuthorUpdateRequest;
 use App\Transformers\AuthorTransformer;
 use Flugg\Responder\Responder;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @group Author management
@@ -33,9 +34,14 @@ class AuthorController
      * @bodyParam author_id int the ID of the author
      * @transformer \App\Transformers\AuthorTransformer
      */
-    public function show($author_id)
+    public function show($id)
     {
-        return responder()->success(Author::findOrFail($author_id), AuthorTransformer::class)->respond();
+        $author = Author::find($id);
+
+        if(!$author)
+            return $this->AuthorNotExistResponse();
+
+        return responder()->success($author, AuthorTransformer::class)->respond();
     }
     /**
      * Create New Author
@@ -66,12 +72,12 @@ class AuthorController
      * @bodyParam last_published The last Author's article.
      * @transformer \App\Transformers\AuthorTransformer
      */
-    public function update(AuthorUpdateRequest $request, $author_id)
+    public function update(AuthorUpdateRequest $request, $id)
     {
-        $author = Author::find($author_id);
+        $author = Author::find($id);
 
         if(!$author)
-            return responder()->error(404, 'Author Not Found')->respond(404);
+            return $this->AuthorNotExistResponse();
 
         $author->update($request->all());
         return responder()->success($author, AuthorTransformer::class)->respond();
@@ -84,14 +90,18 @@ class AuthorController
      *  "message": "deleted",
      * }
      */
-    public function destroy($author_id)
+    public function destroy($id)
     {
-        $author = Author::find($author_id);
+        $author = Author::find($id);
 
         if(!$author)
-            return responder()->error(404, 'Author Not Found')->respond(404);
-
+            return $this->AuthorNotExistResponse();
         $author->delete();
         return response(['status'=>410, 'message'=>'deleted'], 410);
+    }
+
+    public function AuthorNotExistResponse()
+    {
+        return responder()->error(404, 'Author Not Found')->respond(404);
     }
 }

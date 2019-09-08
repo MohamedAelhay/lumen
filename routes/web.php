@@ -21,34 +21,34 @@ $router->post(
         'uses' => 'AuthController@login'
     ]
 );
+$router->post('authors/', [
+    'as'  => 'authors.store',
+    'uses'=> 'AuthorController@store'
+]);
 
-$router->group(['prefix' => 'authors'], function () use ($router) {
+$router->group(['prefix' => 'authors','middleware' => 'auth:api'], function () use ($router) {
 
     $router->get('/', [
-        'middleware' => 'auth:api',
         'as'  => 'authors.index',
         'uses'=> 'AuthorController@index'
     ]);
 
-    $router->get('/{author}', [
-        'as'  => 'authors.show',
-        'uses'=> 'AuthorController@show'
-    ]);
+    $router->group(['middleware' => 'authorize'], function () use ($router) {
+        $router->get('/{author}', [
+            'as'  => 'authors.show',
+            'uses'=> 'AuthorController@show'
+        ]);
 
-    $router->post('/', [
-        'as'  => 'authors.store',
-        'uses'=> 'AuthorController@store'
-    ]);
+        $router->put('{author}', [
+            'as'  => 'authors.update',
+            'uses'=> 'AuthorController@update'
+        ]);
 
-    $router->put('{author}', [
-        'as'  => 'authors.update',
-        'uses'=> 'AuthorController@update'
-    ]);
-
-    $router->delete('{author}', [
-        'as'  => 'authors.destroy',
-        'uses'=> 'AuthorController@destroy'
-    ]);
+        $router->delete('{author}', [
+            'as'  => 'authors.destroy',
+            'uses'=> 'AuthorController@destroy'
+        ]);
+    });
 });
 
 $router->group(['prefix' => 'articles'], function () use ($router) {
