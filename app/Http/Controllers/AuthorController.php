@@ -8,8 +8,7 @@ use App\Author;
 use App\Http\Requests\Author\AuthorStoreRequest;
 use App\Http\Requests\Author\AuthorUpdateRequest;
 use App\Transformers\AuthorTransformer;
-use Flugg\Responder\Responder;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 /**
  * @group Author management
@@ -34,14 +33,9 @@ class AuthorController
      * @bodyParam author_id int the ID of the author
      * @transformer \App\Transformers\AuthorTransformer
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $author = Author::find($id);
-
-        if(!$author)
-            return $this->AuthorNotExistResponse();
-
-        return responder()->success($author, AuthorTransformer::class)->respond();
+        return responder()->success($request->get('author'), AuthorTransformer::class)->respond();
     }
     /**
      * Create New Author
@@ -74,10 +68,7 @@ class AuthorController
      */
     public function update(AuthorUpdateRequest $request, $id)
     {
-        $author = Author::find($id);
-
-        if(!$author)
-            return $this->AuthorNotExistResponse();
+        $author = $request->get('author');
 
         $author->update($request->all());
         return responder()->success($author, AuthorTransformer::class)->respond();
@@ -90,18 +81,11 @@ class AuthorController
      *  "message": "deleted",
      * }
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $author = Author::find($id);
+        $author = $request->get('author');
 
-        if(!$author)
-            return $this->AuthorNotExistResponse();
         $author->delete();
         return response(['status'=>410, 'message'=>'deleted'], 410);
-    }
-
-    public function AuthorNotExistResponse()
-    {
-        return responder()->error(404, 'Author Not Found')->respond(404);
     }
 }

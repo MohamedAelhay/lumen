@@ -64,6 +64,7 @@ $app->singleton(
  $app->routeMiddleware([
      'auth' => App\Http\Middleware\Authenticate::class,
      'authorize' => App\Http\Middleware\AuthorizeMiddleware::class,
+     'authorExist' => App\Http\Middleware\CheckAuthorExistsMiddleware::class,
  ]);
 /*
 |--------------------------------------------------------------------------

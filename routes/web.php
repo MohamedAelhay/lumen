@@ -33,7 +33,7 @@ $router->group(['prefix' => 'authors','middleware' => 'auth:api'], function () u
         'uses'=> 'AuthorController@index'
     ]);
 
-    $router->group(['middleware' => 'authorize'], function () use ($router) {
+    $router->group(['middleware' => ['authorExist', 'authorize']], function () use ($router) {
         $router->get('/{author}', [
             'as'  => 'authors.show',
             'uses'=> 'AuthorController@show'
