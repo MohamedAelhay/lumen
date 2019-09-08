@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWTAuth;
 
+/**
+ * @group Auth Layer
+ *
+ * APIs for managing Auth
+ */
 class AuthController extends Controller
 {
     /**
@@ -16,7 +21,13 @@ class AuthController extends Controller
     {
         $this->jwt = $jwt;
     }
-
+    /**
+     * Author Login
+     * @bodyParam e-mail e-mail required The Author's e-mail.
+     * @bodyParam password password required The Author's password.
+     * @response 200 {
+     * "token" : "JWT Token"
+     */
     public function login(Request $request)
     {
         $this->validate($request, [

@@ -20,36 +20,18 @@ class AuthorController
     /**
      * Show all Authors
      * @authenticated
-     * @response {
-     *  [
-     *      "id": 4,
-     *      "name": "Jessica Jones",
-     *      "e-mail": ["admin"],
-     *      "twitter": "asda"
-     *  ],[
-     *      "id": 4,
-     *      "name": "Jessica Jones",
-     *      "roles": ["admin"]
-     * }
-     * @transformercollection \App\Transformers\UserTransformer
+     * @transformerCollection \App\Transformers\AuthorTransformer
      */
     public function index()
     {
         return responder()->success(Author::paginate(), AuthorTransformer::class)->respond();
     }
+
     /**
      * Select one Author
+     * @authenticated
      * @bodyParam author_id int the ID of the author
-     * @response {
-     *  [
-     *      "id": 4,
-     *      "name": "Jessica Jones",
-     *      "roles": ["admin"]
-     *  ],[
-     *      "id": 4,
-     *      "name": "Jessica Jones",
-     *      "roles": ["admin"]
-     * }
+     * @transformer \App\Transformers\AuthorTransformer
      */
     public function show($author_id)
     {
@@ -60,9 +42,11 @@ class AuthorController
      * @bodyParam name string required The Author name.
      * @bodyParam password password required The Author's password.
      * @bodyParam e-mail e-mail required The Author's e-mail.
+     * @bodyParam location address required The Author's address.
      * @bodyParam twitter e-mail required The Author's twitter.
      * @bodyParam github e-mail required The Author's github.
      * @bodyParam last_published The last Author's article.
+     * @transformer \App\Transformers\AuthorTransformer
      */
     public function store(AuthorStoreRequest $request)
     {
@@ -72,12 +56,15 @@ class AuthorController
     }
     /**
      * Update Author's details
+     * @authenticated
      * @bodyParam name string The Author name.
      * @bodyParam password password The The Author's password.
      * @bodyParam e-mail e-mail The Author's e-mail.
+     * @bodyParam location address The The Author's address.
      * @bodyParam twitter e-mail The The Author's twitter.
      * @bodyParam github e-mail The The Author's github.
      * @bodyParam last_published The last Author's article.
+     * @transformer \App\Transformers\AuthorTransformer
      */
     public function update(AuthorUpdateRequest $request, $author_id)
     {
@@ -91,7 +78,11 @@ class AuthorController
     }
     /**
      * Delete Author
+     * @authenticated
      * @bodyParam id Int required The Author's ID.
+     * @response 200 {
+     *  "message": "deleted",
+     * }
      */
     public function destroy($author_id)
     {
